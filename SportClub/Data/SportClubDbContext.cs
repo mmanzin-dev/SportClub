@@ -14,5 +14,5 @@ using SportClub.Models;
 
         public DbSet<SportClub.Models.Player> Player { get; set; } = default!;
 
-public DbSet<SportClub.Models.Team> Team { get; set; } = default!;
+        public DbSet<SportClub.Models.Team> Team { get; set; } = default!;
     }
