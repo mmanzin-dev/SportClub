@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "38OCBYv25zw=",
+  "success": true,
+  "projectFilePath": "/home/matko/Documents/GitHub/SportClub/SportClub/SportClub.csproj",
+  "expectedPackageFiles": [
+    "/home/matko/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.11/microsoft.aspnetcore.app.ref.9.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}
