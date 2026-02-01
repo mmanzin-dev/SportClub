@@ -22,6 +22,6 @@ namespace SportClub.Models
 
         public int TeamId {get; set;}
         
-        public Team Team {get; set;}
+        public Team? Team {get; set; }
     }
 }
