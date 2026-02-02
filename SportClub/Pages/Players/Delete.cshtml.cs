@@ -28,7 +28,7 @@ namespace SportClub.Pages.Players
                 return NotFound();
             }
 
-            var player = await _context.Player.FirstOrDefaultAsync(m => m.Id == id);
+            var player = await _context.Player.Include(p => p.Team).FirstOrDefaultAsync(m => m.Id == id);
 
             if (player is not null)
             {

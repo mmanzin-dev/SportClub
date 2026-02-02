@@ -2,72 +2,72 @@
 @model SportClub.Pages.Players.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalji";
 }
 
-<h1>Details</h1>
+<h1>Detalji</h1>
 
 <div>
-    <h4>Player</h4>
+    <h4>Igrac</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.FirstName)
+            Ime
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Player.FirstName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.LastName)
+            Prezime
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Player.LastName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.DateOfBirth)
+            Datum rodenja
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Player.DateOfBirth)
+            @Model.Player.DateOfBirth.ToShortDateString()
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.Email)
+            Email
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Player.Email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.PhoneNumber)
+            Broj mobitela
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Player.PhoneNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.JerseyNumber)
+            Broj dresa
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Player.JerseyNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.Position)
+            Pozicija
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Player.Position)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.Active)
+            Aktivan
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Player.Active)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Player.Team)
+            Tim
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Player.Team.Id)
+            @(Model.Player.Team?.Name ?? "Nema")
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Player.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.Player.Id">Uredi</a> |
+    <a asp-page="./Index">Nazad na tablicu</a>
 </div>

@@ -35,7 +35,7 @@ namespace SportClub.Pages.Players
                 return NotFound();
             }
             Player = player;
-           ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Id");
+            ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Name");
             return Page();
         }
 

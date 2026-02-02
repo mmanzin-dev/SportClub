@@ -2,7 +2,7 @@
 @model SportClub.Pages.Players.FilterByTeamModel
 
 @{
-    ViewData["Title"] = "FilterByTeam";
+    ViewData["Title"] = "Filtriranje";
 }
 
 <h1>Filtriranje po timu</h1>
@@ -38,7 +38,7 @@
             <tr>
                 <td>@player.FirstName</td>
                 <td>@player.LastName</td>
-                <td>@player.DateOfBirth</td>
+                <td>@player.DateOfBirth.ToShortDateString()</td>
                 <td>@player.Team?.Name</td>
                 <td>@player.JerseyNumber</td>
                 <td>@player.Position</td>

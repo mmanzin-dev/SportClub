@@ -1,47 +1,47 @@
 @page
 @model SportClub.Pages.Teams.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
+@{
+    ViewData["Title"] = "Dodaj";
+}
         
-        <h1>Create</h1>
+<h1>Dodavanje</h1>
         
-    <h4>Team</h4>
-    <hr />
-    <div class="row">
+<h4>Tim</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Team.Name" class="control-label"></label>
+                <label asp-for="Team.Name" class="control-label">Ime</label>
                 <input asp-for="Team.Name" class="form-control" />
                 <span asp-validation-for="Team.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Team.Coach" class="control-label"></label>
+                <label asp-for="Team.Coach" class="control-label">Trener</label>
                 <input asp-for="Team.Coach" class="form-control" />
                 <span asp-validation-for="Team.Coach" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Team.NumberOfPlayers" class="control-label"></label>
+                <label asp-for="Team.NumberOfPlayers" class="control-label">Broj igraca</label>
                 <input asp-for="Team.NumberOfPlayers" class="form-control" />
                 <span asp-validation-for="Team.NumberOfPlayers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Team.YearFounded" class="control-label"></label>
+                <label asp-for="Team.YearFounded" class="control-label">Godina osnivanja</label>
                 <input asp-for="Team.YearFounded" class="form-control" />
                 <span asp-validation-for="Team.YearFounded" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Nazad na listu</a>
 </div>
 
 @section Scripts {

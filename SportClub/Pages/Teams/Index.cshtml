@@ -2,28 +2,28 @@
 @model SportClub.Pages.Teams.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Timovi";
 }
 
-<h1>Index</h1>
+<h1>Timovi</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Dodajte novi tim</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Team[0].Name)
+                Ime
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Team[0].Coach)
+                Trener
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Team[0].NumberOfPlayers)
+                Broj igraca
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Team[0].YearFounded)
+                Godina osnivanja
             </th>
             <th></th>
         </tr>
@@ -44,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.YearFounded)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Uredi</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalji</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Izbrisi</a>
             </td>
         </tr>
 }

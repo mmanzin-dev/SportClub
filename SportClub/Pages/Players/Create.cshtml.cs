@@ -20,7 +20,7 @@ namespace SportClub.Pages.Players
 
         public IActionResult OnGet()
         {
-        ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Id");
+        ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Name");
             return Page();
         }
 

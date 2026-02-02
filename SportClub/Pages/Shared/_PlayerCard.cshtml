@@ -8,7 +8,7 @@
             <strong>Broj:</strong> @Model.JerseyNumber<br />
             <strong>Pozicija:</strong> @Model.Position<br />
             <strong>Datum rođenja:</strong> @Model.DateOfBirth.ToShortDateString()<br />
-            <strong>Aktivan:</strong> @Model.Active
+            <strong>Aktivan:</strong> @(Model.Active ? "DA" : "NE")
         </p>
     </div>
     
