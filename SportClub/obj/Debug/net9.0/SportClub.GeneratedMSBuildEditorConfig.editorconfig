@@ -48,8 +48,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGxheWVycy9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/matko/Documents/GitHub/SportClub/SportClub/Pages/Players/FilterByTeam.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGxheWVycy9GaWx0ZXJCeVRlYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/matko/Documents/GitHub/SportClub/SportClub/Pages/Players/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGxheWVycy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/matko/Documents/GitHub/SportClub/SportClub/Pages/Players/SortedByName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGxheWVycy9Tb3J0ZWRCeU5hbWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/matko/Documents/GitHub/SportClub/SportClub/Pages/Shared/_ValidationScriptsPartial.cshtml]
