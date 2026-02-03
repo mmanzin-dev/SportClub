@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Juv4ihaEWVk=",
+  "success": true,
+  "projectFilePath": "/home/matko/Documents/GitHub/SportClub/SportClubWebAPI/SportClubWebAPI.csproj",
+  "expectedPackageFiles": [
+    "/home/matko/.nuget/packages/microsoft.aspnetcore.openapi/9.0.12/microsoft.aspnetcore.openapi.9.0.12.nupkg.sha512",
+    "/home/matko/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/home/matko/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.12/microsoft.aspnetcore.app.ref.9.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
