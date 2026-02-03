@@ -5,23 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SportClub.Models;
+using SportClubMVC.Models;
 
 namespace SportClubMVC.Controllers
 {
     public class TeamsController : Controller
     {
-        private readonly SportClubDbContext _context;
+        private readonly ITeamService _teamService;
 
-        public TeamsController(SportClubDbContext context)
+        public TeamsController(ITeamService teamService)
         {
-            _context = context;
+            _teamService = teamService;
         }
 
         // GET: Teams
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Team.ToListAsync());
+            return View(await _teamService.GetAllTeamsAsync());
         }
 
         // GET: Teams/Details/5
@@ -32,8 +32,7 @@ namespace SportClubMVC.Controllers
                 return NotFound();
             }
 
-            var team = await _context.Team
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var team = await _teamService.GetTeamByIdAsync(id.Value);
             if (team == null)
             {
                 return NotFound();
@@ -57,8 +56,7 @@ namespace SportClubMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(team);
-                await _context.SaveChangesAsync();
+                await _teamService.CreateTeamAsync(team);
                 return RedirectToAction(nameof(Index));
             }
             return View(team);
@@ -72,7 +70,7 @@ namespace SportClubMVC.Controllers
                 return NotFound();
             }
 
-            var team = await _context.Team.FindAsync(id);
+            var team = await _teamService.GetTeamByIdAsync(id.Value);
             if (team == null)
             {
                 return NotFound();
@@ -96,12 +94,12 @@ namespace SportClubMVC.Controllers
             {
                 try
                 {
-                    _context.Update(team);
-                    await _context.SaveChangesAsync();
+                    await _teamService.UpdateTeamAsync(team);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TeamExists(team.Id))
+                    var exists = await _teamService.GetTeamByIdAsync(team.Id);
+                    if (exists == null)
                     {
                         return NotFound();
                     }
@@ -123,8 +121,7 @@ namespace SportClubMVC.Controllers
                 return NotFound();
             }
 
-            var team = await _context.Team
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var team = await _teamService.GetTeamByIdAsync(id.Value);
             if (team == null)
             {
                 return NotFound();
@@ -138,19 +135,8 @@ namespace SportClubMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var team = await _context.Team.FindAsync(id);
-            if (team != null)
-            {
-                _context.Team.Remove(team);
-            }
-
-            await _context.SaveChangesAsync();
+            await _teamService.DeleteTeamAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool TeamExists(int id)
-        {
-            return _context.Team.Any(e => e.Id == id);
         }
     }
 }

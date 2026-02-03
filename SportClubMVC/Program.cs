@@ -1,5 +1,7 @@
+global using Microsoft.EntityFrameworkCore;
+global using SportClubMVC.Services;
+
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using SportClubMVC.Data;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SportClubDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SportClubDbContext") ?? throw new InvalidOperationException("Connection string 'SportClubDbContext' not found.")));
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -15,6 +16,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

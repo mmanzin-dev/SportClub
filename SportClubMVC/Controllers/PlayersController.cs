@@ -5,24 +5,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SportClub.Models;
+using SportClubMVC.Models;
 
 namespace SportClubMVC.Controllers
 {
     public class PlayersController : Controller
     {
-        private readonly SportClubDbContext _context;
+        private readonly IPlayerService _playerService;
+        private readonly ITeamService _teamService;
 
-        public PlayersController(SportClubDbContext context)
+        public PlayersController(IPlayerService playerService, ITeamService teamService)
         {
-            _context = context;
+            _playerService = playerService;
+            _teamService = teamService;
         }
 
         // GET: Players
         public async Task<IActionResult> Index()
         {
-            var sportClubDbContext = _context.Player.Include(p => p.Team);
-            return View(await sportClubDbContext.ToListAsync());
+            return View(await _playerService.GetAllPlayersAsync());
         }
 
         // GET: Players/Details/5
@@ -33,9 +34,7 @@ namespace SportClubMVC.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var player = await _playerService.GetPlayerByIdAsync(id.Value);
             if (player == null)
             {
                 return NotFound();
@@ -45,9 +44,9 @@ namespace SportClubMVC.Controllers
         }
 
         // GET: Players/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Id");
+            ViewData["TeamId"] = new SelectList(await _teamService.GetAllTeamsAsync(), "Id", "Name");
             return View();
         }
 
@@ -60,11 +59,10 @@ namespace SportClubMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(player);
-                await _context.SaveChangesAsync();
+                await _playerService.CreatePlayerAsync(player);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Id", player.TeamId);
+            ViewData["TeamId"] = new SelectList(await _teamService.GetAllTeamsAsync(), "Id", "Name", player.TeamId);
             return View(player);
         }
 
@@ -76,12 +74,12 @@ namespace SportClubMVC.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player.FindAsync(id);
+            var player = await _playerService.GetPlayerByIdAsync(id.Value);
             if (player == null)
             {
                 return NotFound();
             }
-            ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Id", player.TeamId);
+            ViewData["TeamId"] = new SelectList(await _teamService.GetAllTeamsAsync(), "Id", "Name", player.TeamId);
             return View(player);
         }
 
@@ -101,12 +99,12 @@ namespace SportClubMVC.Controllers
             {
                 try
                 {
-                    _context.Update(player);
-                    await _context.SaveChangesAsync();
+                    await _playerService.UpdatePlayerAsync(player);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlayerExists(player.Id))
+                    var exists = await _playerService.GetPlayerByIdAsync(player.Id);
+                    if (exists == null)
                     {
                         return NotFound();
                     }
@@ -117,7 +115,7 @@ namespace SportClubMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Id", player.TeamId);
+            ViewData["TeamId"] = new SelectList(await _teamService.GetAllTeamsAsync(), "Id", "Name", player.TeamId);
             return View(player);
         }
 
@@ -129,9 +127,7 @@ namespace SportClubMVC.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var player = await _playerService.GetPlayerByIdAsync(id.Value);
             if (player == null)
             {
                 return NotFound();
@@ -145,19 +141,29 @@ namespace SportClubMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var player = await _context.Player.FindAsync(id);
-            if (player != null)
-            {
-                _context.Player.Remove(player);
-            }
-
-            await _context.SaveChangesAsync();
+            await _playerService.DeletePlayerAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PlayerExists(int id)
+        // ActivePlayers
+        public async Task<IActionResult> ActivePlayers()
         {
-            return _context.Player.Any(e => e.Id == id);
+            var players = await _playerService.GetActivePlayersAsync();
+            return View(players);
+        }
+
+        // SearchByPosition
+        public async Task<IActionResult> SearchByPosition(string position)
+        {
+            if (string.IsNullOrEmpty(position))
+            {
+                ViewBag.Position = "";
+                return View(new List<Player>());
+            }
+
+            var players = await _playerService.SearchByPositionAsync(position);
+            ViewBag.Position = position;
+            return View(players);
         }
     }
 }
