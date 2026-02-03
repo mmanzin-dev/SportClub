@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SportClubMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+611431b752cd129e0c3138c6b7aaccc7077dba6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c0d04004db24ee052790de8ac0bedb6c3f5ea18")]
 [assembly: System.Reflection.AssemblyProductAttribute("SportClubMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SportClubMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

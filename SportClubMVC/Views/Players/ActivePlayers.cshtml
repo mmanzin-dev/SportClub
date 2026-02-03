@@ -1,0 +1,44 @@
+@model IEnumerable<SportClubMVC.Models.Player>
+
+@{
+    ViewData["Title"] = "Aktivni igraci";
+}
+
+<h1>Aktivni igraci</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Tim</th>
+            <th>Pozicija</th>
+            <th>Broj dresa</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var player in Model)
+            {
+                <tr>
+                    <td>@player.FirstName</td>
+                    <td>@player.LastName</td>
+                    <td>@player.Team?.Name</td>
+                    <td>@player.Position</td>
+                    <td>@player.JerseyNumber</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@player.Id">Detalji</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td class="text-center">Nema aktivnih igrača</td>
+            </tr>
+        }
+    </tbody>
+</table>
