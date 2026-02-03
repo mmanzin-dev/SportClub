@@ -1,4 +1,4 @@
-namespace SportClub.Models
+namespace SportClubMVC.Models
 {
     public class Player
     {
