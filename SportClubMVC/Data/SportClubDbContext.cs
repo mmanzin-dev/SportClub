@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SportClubMVC.Models;
 
-namespace SportClubMVC.Models
-{
     public class SportClubDbContext : DbContext
     {
         public SportClubDbContext (DbContextOptions<SportClubDbContext> options)
@@ -18,4 +16,3 @@ namespace SportClubMVC.Models
 
         public DbSet<SportClubMVC.Models.Team> Team { get; set; } = default!;
     }
-}
