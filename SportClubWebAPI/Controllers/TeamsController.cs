@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SportClubWebAPI.Models;
+using SportClubWebAPI.Services;
 
 namespace SportClubWebAPI.Controllers
 {
@@ -13,63 +8,31 @@ namespace SportClubWebAPI.Controllers
     [ApiController]
     public class TeamsController : ControllerBase
     {
-        private readonly SportClubDbContext _context;
+        private readonly ITeamService _teamService;
 
-        public TeamsController(SportClubDbContext context)
+        public TeamsController(ITeamService teamService)
         {
-            _context = context;
+            _teamService = teamService;
         }
 
         // GET: api/Teams
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Team>>> GetTeam()
+        public async Task<ActionResult<IEnumerable<Team>>> GetTeams()
         {
-            return await _context.Team.Include(t => t.Players).ToListAsync();
+            var teams = await _teamService.GetAllTeamsAsync();
+            return Ok(teams);
         }
 
         // GET: api/Teams/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Team>> GetTeam(int id)
         {
-            var team = await _context.Team.Include(t => t.Players).FirstOrDefaultAsync(t => t.Id == id);
-
+            var team = await _teamService.GetTeamByIdAsync(id);
             if (team == null)
             {
                 return NotFound();
             }
-
-            return team;
-        }
-
-        // PUT: api/Teams/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeam(int id, Team team)
-        {
-            if (id != team.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(team).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeamExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(team);
         }
 
         // POST: api/Teams
@@ -77,31 +40,33 @@ namespace SportClubWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Team>> PostTeam(Team team)
         {
-            _context.Team.Add(team);
-            await _context.SaveChangesAsync();
+            var createdTeam = await _teamService.CreateTeamAsync(team);
+            return CreatedAtAction(nameof(GetTeam), new { id = createdTeam.Id }, createdTeam);
+        }
 
-            return CreatedAtAction("GetTeam", new { id = team.Id }, team);
+        // PUT: api/Teams/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTeam(int id, Team team)
+        {
+            var updatedTeam = await _teamService.UpdateTeamAsync(id, team);
+            if (updatedTeam == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
 
         // DELETE: api/Teams/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeam(int id)
         {
-            var team = await _context.Team.FindAsync(id);
-            if (team == null)
+            var result = await _teamService.DeleteTeamAsync(id);
+            if (!result)
             {
                 return NotFound();
             }
-
-            _context.Team.Remove(team);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool TeamExists(int id)
-        {
-            return _context.Team.Any(e => e.Id == id);
         }
     }
 }
