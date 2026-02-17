@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using SportClubWebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SportClubDbContext>(options =>
@@ -12,7 +13,8 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
-
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
