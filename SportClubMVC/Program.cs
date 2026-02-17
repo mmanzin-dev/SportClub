@@ -42,7 +42,30 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-    await SeedRolesAndAdmin(roleManager, userManager);
+    
+    string[] roles = { "Admin", "User" };
+    
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+    
+    var adminEmail = "admin@sklub.hr";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        adminUser = new IdentityUser 
+        { 
+            UserName = adminEmail, 
+            Email = adminEmail, 
+            EmailConfirmed = true 
+        };
+        await userManager.CreateAsync(adminUser, "AdminSKlub26!");
+        await userManager.AddToRoleAsync(adminUser, "Admin");
+    }
 }
 
 if (app.Environment.IsDevelopment())
@@ -73,36 +96,3 @@ app.MapRazorPages()
    .WithStaticAssets();
 
 app.Run();
-
-async Task SeedRolesAndAdmin(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
-{
-    string[] roles = { "Admin", "User" };
-    
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-    
-    var adminEmail = "admin@sklub.hr";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    
-    if (adminUser == null)
-    {
-        var newAdmin = new IdentityUser
-        {
-            UserName = adminEmail,
-            Email = adminEmail,
-            EmailConfirmed = true
-        };
-        
-        var result = await userManager.CreateAsync(newAdmin, "AdminSKlub26!");
-        
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(newAdmin, "Admin");
-        }
-    }
-}
