@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SportClubMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportClubMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TeamsController : Controller
     {
         private readonly ITeamService _teamService;
@@ -18,12 +20,14 @@ namespace SportClubMVC.Controllers
             _teamService = teamService;
         }
 
+        [AllowAnonymous]
         // GET: Teams
         public async Task<IActionResult> Index()
         {
             return View(await _teamService.GetAllTeamsAsync());
         }
 
+        [AllowAnonymous]
         // GET: Teams/Details/5
         public async Task<IActionResult> Details(int? id)
         {

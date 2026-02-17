@@ -1,28 +1,31 @@
 @model IEnumerable<SportClubMVC.Models.Team>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Timovi";
 }
 
-<h1>Index</h1>
+<h1>Timovi</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin")) {
+    <p>
+        <a asp-action="Create">Dodaj</a>
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Ime
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Coach)
+                Trener
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumberOfPlayers)
+                Broj igraca
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.YearFounded)
+                Godina osnivanja
             </th>
             <th></th>
         </tr>
@@ -43,9 +46,14 @@
                 @Html.DisplayFor(modelItem => item.YearFounded)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @if (User.IsInRole("Admin")) {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a>
+                    <text> | </text>
+                }
+                <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                @if (User.IsInRole("Admin")) {
+                    <a asp-action="Delete" asp-route-id="@item.Id">Izbrisi</a>
+                }
             </td>
         </tr>
 }

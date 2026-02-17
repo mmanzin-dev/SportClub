@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SportClubMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportClubMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PlayersController : Controller
     {
         private readonly IPlayerService _playerService;
@@ -20,12 +22,14 @@ namespace SportClubMVC.Controllers
             _teamService = teamService;
         }
 
+        [AllowAnonymous]
         // GET: Players
         public async Task<IActionResult> Index()
         {
             return View(await _playerService.GetAllPlayersAsync());
         }
 
+        [AllowAnonymous]
         // GET: Players/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -145,6 +149,7 @@ namespace SportClubMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         // ActivePlayers
         public async Task<IActionResult> ActivePlayers()
         {
@@ -152,6 +157,7 @@ namespace SportClubMVC.Controllers
             return View(players);
         }
 
+        [AllowAnonymous]
         // SearchByPosition
         public async Task<IActionResult> SearchByPosition(string position)
         {

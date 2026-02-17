@@ -1,0 +1,65 @@
+@model List<SportClubMVC.Controllers.UserRoleViewModel>
+
+@{
+    ViewData["Title"] = "Upravljanje korisnicima";
+}
+
+<h1>Upravljanje korisnicima</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Trenutne uloge</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    @if (user.Roles.Any())
+                    {
+                        @string.Join(", ", user.Roles)
+                    }
+                    else
+                    {
+                        <em>Nema uloga</em>
+                    }
+                </td>
+                <td>
+                    @foreach (var role in user.AllRoles)
+                    {
+                        if (!user.Roles.Contains(role))
+                        {
+                            <form method="post" asp-action="AssignRole" style="display:inline">
+                                <input type="hidden" name="userId" value="@user.UserId" />
+                                <input type="hidden" name="role" value="@role" />
+                                <button type="submit" class="btn btn-primary btn-sm">+ @role</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-action="RemoveRole" style="display:inline">
+                                <input type="hidden" name="userId" value="@user.UserId" />
+                                <input type="hidden" name="role" value="@role" />
+                                <button type="submit" class="btn btn-danger btn-sm">- @role</button>
+                            </form>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" asp-controller="Home">Nazad na tablicu</a>

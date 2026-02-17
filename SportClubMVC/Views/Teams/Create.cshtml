@@ -1,46 +1,46 @@
 @model SportClubMVC.Models.Team
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodaj";
 }
 
-<h1>Create</h1>
+<h1>Dodaj</h1>
 
-<h4>Team</h4>
+<h4>Tim</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Ime</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Coach" class="control-label"></label>
+                <label asp-for="Coach" class="control-label">Trener</label>
                 <input asp-for="Coach" class="form-control" />
                 <span asp-validation-for="Coach" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NumberOfPlayers" class="control-label"></label>
+                <label asp-for="NumberOfPlayers" class="control-label">Broj igraca</label>
                 <input asp-for="NumberOfPlayers" class="form-control" />
                 <span asp-validation-for="NumberOfPlayers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="YearFounded" class="control-label"></label>
+                <label asp-for="YearFounded" class="control-label">Godina osnivanja</label>
                 <input asp-for="YearFounded" class="form-control" />
                 <span asp-validation-for="YearFounded" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Nazad na listu</a>
 </div>
 
 @section Scripts {
