@@ -1,0 +1,2 @@
+~/Documents/GitHub/SportClub/SportClubMVC dev* ❯ docker build -t sportclubmvc .
+~/Documents/GitHub/SportClub/SportClubMVC dev* ❯ docker container run --rm -p 8080:8080 sportclubmvc
