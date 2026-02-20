@@ -1,0 +1,96 @@
+
+body {
+    background-color: #f0f0f0;
+    font-family: "Tahoma", Arial, sans-serif;
+    font-size: 11pt;
+}
+
+h1, h2, h3 {
+    color: #005a9e;
+    font-weight: bold;
+}
+
+h1 {
+    border-bottom: 2px solid #0078d7;
+    padding-bottom: 5px;
+}
+
+.navbar {
+    background: #005a9e !important;
+    border: none;
+    box-shadow: 0 2px 5px #00000080;
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+    text-shadow: 1px 1px 2px #00000080;
+}
+
+.nav-link:hover {
+    background-color: #ffffff33;
+    border-radius: 3px;
+}
+
+.card {
+    border: 1px solid #5b9bd5;
+    border-radius: 6px;
+    box-shadow: 2px 2px 4px #00000000;
+}
+
+.card-header {
+    background: #5b9bd5;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+}
+
+.btn {
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px solid #003c74;
+}
+
+.btn-primary {
+    background: #0078d7;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #005a9e;
+}
+
+.btn-success {
+    background: #73d216;
+}
+
+.btn-danger {
+    background: #e74c3c;
+}
+
+.form-control {
+    border: 1px solid #7f9db9;
+    border-radius: 3px;
+}
+
+.form-control:focus {
+    border-color: #0078d7;
+    box-shadow: 0 0 3px #0078d780;
+}
+
+.table {
+    border: 1px solid #7f9db9;
+}
+
+.table thead {
+    background: #d0d8e0;
+    font-weight: bold;
+}
+
+footer {
+    background: #ece9d8;
+    border-top: 2px solid #5b9bd5;
+    color: #333333;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+}

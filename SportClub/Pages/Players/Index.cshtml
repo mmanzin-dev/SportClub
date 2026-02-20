@@ -1,0 +1,85 @@
+@page
+@model SportClub.Pages.Players.IndexModel
+
+@{
+    ViewData["Title"] = "Igraci";
+}
+
+<h1>Igraci</h1>
+
+<p>
+    <a asp-page="Create">Dodajte novog igraca</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+            <th>
+                Datum rodenja
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Broj mobitela
+            </th>
+            <th>
+                Tim
+            </th>
+            <th>
+                Broj dresa
+            </th>
+            <th>
+                Pozicija
+            </th>
+            <th>
+                Aktivan
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Player) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @item.DateOfBirth.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JerseyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Uredi</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalji</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Izbrisi</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

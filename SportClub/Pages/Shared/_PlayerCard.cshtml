@@ -1,0 +1,22 @@
+@model SportClub.Models.Player
+
+<div class="card h-100">
+    <div class="card-body">
+        <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
+        <p class="card-text">
+            <strong>Tim:</strong> @(Model.Team?.Name ?? "Nema")<br />
+            <strong>Broj:</strong> @Model.JerseyNumber<br />
+            <strong>Pozicija:</strong> @Model.Position<br />
+            <strong>Datum rođenja:</strong> @Model.DateOfBirth.ToShortDateString()<br />
+            <strong>Aktivan:</strong> @(Model.Active ? "DA" : "NE")
+        </p>
+    </div>
+    
+    <div class="card-footer">
+        <div class="btn-group w-100">
+            <a asp-page="/Players/Details" asp-route-id="@Model.Id" class="btn btn-sm">Detalji</a>
+            <a asp-page="/Players/Edit" asp-route-id="@Model.Id" class="btn btn-sm">Uredi</a>
+            <a asp-page="/Players/Delete" asp-route-id="@Model.Id" class="btn btn-sm">Obrisi</a>
+        </div>
+    </div>
+</div>

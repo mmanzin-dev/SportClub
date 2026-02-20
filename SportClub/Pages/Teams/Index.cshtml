@@ -1,0 +1,54 @@
+@page
+@model SportClub.Pages.Teams.IndexModel
+
+@{
+    ViewData["Title"] = "Timovi";
+}
+
+<h1>Timovi</h1>
+
+<p>
+    <a asp-page="Create">Dodajte novi tim</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Trener
+            </th>
+            <th>
+                Broj igraca
+            </th>
+            <th>
+                Godina osnivanja
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Team) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Coach)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfPlayers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearFounded)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Uredi</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalji</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Izbrisi</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

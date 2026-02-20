@@ -1,0 +1,75 @@
+@model SportClubMVC.Models.Player
+
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<h1>Detalji</h1>
+
+<div>
+    <h4>Igrac</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Ime
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            Prezime
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            Datum rodenja
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.DateOfBirth.ToShortDateString()
+        </dd>
+        <dt class = "col-sm-2">
+            Email
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            Broj mobitela
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            Broj dresa
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JerseyNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            Pozicija
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+        <dt class = "col-sm-2">
+            Aktivan
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt class = "col-sm-2">
+            Tim
+        </dt>
+        <dd class = "col-sm-10">
+            @(Model.Team?.Name ?? "Nema")
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.IsInRole("Admin")) {
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Uredi</a>
+        <text> | </text>
+    }
+    <a asp-action="Index">Nazad na tablicu</a>
+</div>
